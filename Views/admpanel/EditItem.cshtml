@@ -1,0 +1,42 @@
+﻿@model SpravRemontSite.DataObject.ITEM_KATEGOR
+
+@{
+    ViewData["Title"] = "EditItem";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Изменение под категории товара</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditItem" asp-controller="admpanel" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="KATEGOR.ID_KATEGOR" hidden="hidden" />
+            <input asp-for="ITEM.ID_ITEM" hidden="hidden" />
+            <input asp-for="ID_ITEM_KATEGOR" hidden="hidden" />
+
+
+            <div class="form-group">
+                <label asp-for="ITEM.NAME_ITEM" class="control-label">Название</label>
+                <input asp-for="ITEM.NAME_ITEM" class="form-control" />
+                <span asp-validation-for="ITEM.NAME_ITEM" class="text-danger"></span>
+            </div>
+            <div>
+                <input hidden="hidden" asp-for="ITEM.IMG_URL" />
+
+                <label asp-for="ITEM.IMG_URL_F" class="control-label">Изображение</label><br /><br />
+                <img style='width:80px; height:80px;' src="@Model.ITEM.IMG_URL" /><br /><br />
+                <input asp-for="ITEM.IMG_URL_F" type="file" class="form-control" />
+                <span asp-validation-for="ITEM.IMG_URL_F" class="text-danger"></span>
+            </div>
+            <br /><br />
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

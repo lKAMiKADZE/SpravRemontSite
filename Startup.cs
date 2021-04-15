@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,15 @@ namespace SpravRemontSite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            //установка конфигурации подключения
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => //CookieAuthenticationOptions
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+
+                });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,11 +46,25 @@ namespace SpravRemontSite
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseStaticFiles();
+            
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            //
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseFileServer();
+            //app.UseCookiePolicy();
+
+            //app.UseDefaultFiles();// azure
+
+
+            app.UseAuthentication();// авторизация
+            //
+
+
 
             app.UseEndpoints(endpoints =>
             {
@@ -48,6 +72,15 @@ namespace SpravRemontSite
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
+            /*
+           app.UseAzureSignalR(routes =>
+           {
+               routes.MapHub<ChatHub>("/chat");
+           });
+           */
+
         }
     }
 }

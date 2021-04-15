@@ -1,0 +1,350 @@
+﻿@model SpravRemontSite.Models.ChatViewModel
+
+@{
+    //Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Чат</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+</head>
+<body>
+    <div id="loginBlock">
+        <br />
+
+        <input id="iduser" type="text" value="@Model.ID_Shop" hidden/>
+        @if (Model.ID_Client == null)
+        {
+            <input id="userTo" type="text" value="" hidden/>
+        }
+        else
+        {
+            <input id="userTo" type="text" value="@Model.ID_Client" hidden/>
+        }
+
+        <input id="typeMSG" type="number" value="0" hidden/>
+
+        <input id="typeSiteClient" type="number" value="0" hidden />
+
+
+
+    </div><br />
+
+    <div id="header"></div><br />
+
+    <div class="row">
+        <div class="col-md-2">
+            <p><b>Клиенты</b></p>
+            <div id="chatusers">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label>Статус чата: </label>
+            <input id="statuschat" type="text" value="Отключен" readonly="readonly" />
+
+            @if (Model.ID_Client != null && Model.ID_Client != "")
+            {
+                <label>Чат с @Model.ID_ClientShort</label>
+            }
+
+
+            @* Сначала выводиться исторический чат, после уже будут прилетать сообщения в реальном времени *@
+            <div id="chatroom">
+                @if (Model.MessagesChat != null)
+                {
+                    foreach (SpravRemontSite.DataObject.Messages item in Model.MessagesChat)
+                    {
+                        <p style='margin-left: 5px;'>
+                            @if (item.ID_to == Model.ID_Client)
+                            {
+                              <b>@item.Date_send.ToString("HH:mm") Магазин</b>
+                            }
+                            else
+                            {
+                              <b>@item.Date_send.ToString("HH:mm") Клиент</b>
+                            }
+
+                            @if (item.ID_type_message == 1)// далее тип сообщения картинка или текст
+                            {
+
+                                <div class="image__wrapper" style='margin-left: 5px;'>
+                                    <img src="@item.Message" class="minimized" alt="Картинка" height="200" />
+                                </div>
+
+                            }
+                            else
+                            {
+                                <div style="overflow-wrap: break-word; margin-left: 5px;" >
+                                    @item.Message
+                                </div>
+                            }
+
+
+
+                        </p>
+
+                    }// foreach // next if
+                }
+            </div>
+
+            <div id="inputForm">
+
+                @if (Model.ID_ClientShort == null)
+                {
+                    <textarea type="text" style='width:600px; height: 100px;' id="message" maxlength="250"></textarea>
+                    <input type="button" id="sendBtn" value="Отправить" hidden="hidden" />
+                }
+                else
+                {
+                    <textarea type="text" style='width:600px; height: 100px;' id="message" maxlength="250"></textarea>
+                    <input type="button" id="sendBtn" value="Отправить" />
+                }
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="~/js/signalr.min.js"></script>
+    <script>
+        let hubUrl = "/chat";
+        const hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl(hubUrl)
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+
+
+        let userName = "";
+        // получение сообщения от сервера
+        hubConnection.on("ReceiveTo", function (userName, userTo, message, typeMSG, typeSiteClient, timeHHmm) {
+
+            // проверка что сообщение пришло именно в тот чат, с кем ведет общение магазин
+            if (userName != userTo && userName != document.getElementById('userTo').value)
+                return;
+
+            // создаем элемент <b> для имени пользователя
+            let userNameElem = document.createElement("b");
+            if (document.getElementById('iduser').value == userName)
+                userNameElem.appendChild(document.createTextNode(timeHHmm + " Магазин: "));
+            else
+                userNameElem.appendChild(document.createTextNode(timeHHmm + " Клиент: "));
+
+            // создает элемент <p> для сообщения пользователя
+            let elem = document.createElement("p");
+            elem.style.marginLeft = "5px";
+
+            //let elemTime = document.createElement("p");
+            //elemTime.appendChild(document.createTextNode(timeHHmm));
+
+            //elem.appendChild(elemTime);
+            elem.appendChild(userNameElem);
+            if (typeMSG == 0) //
+            {
+                let divMessage = document.createElement("div");
+                divMessage.style.wordWrap = "break-word";// перенос на новую строку
+
+                divMessage.appendChild(document.createTextNode(message));
+                elem.appendChild(divMessage);
+
+
+
+            }
+            if (typeMSG == 1) {
+                // создали тег картинку и добавили ссылку на картинку
+                //после вставляем в сообщение чата
+                let imgMessage = document.createElement("img");
+                imgMessage.src = message;
+                imgMessage.height = 200;
+                imgMessage.className = "minimized";
+                imgMessage.alt = "Картинка";
+
+                let divImgMessage = document.createElement("div");
+                divImgMessage.className = "image__wrapper";
+                divImgMessage.appendChild(imgMessage);
+
+                elem.appendChild(divImgMessage);//
+            }
+
+
+
+            document.getElementById("chatroom").appendChild(elem)
+
+
+
+            ////////////////////
+            // СКРИПТ УВЕЛИЧЕНИЯ ФОТО
+            $(function () {
+                $('.minimized').click(function (event) {
+                    //document.getElementsByClassName("minimized").addEventListener("click", function (e) {
+                    var i_path = $(this).attr('src');
+                    $('body').append('<div id="overlay"></div><div id="magnify"><img src="' + i_path + '"><div id="close-popup"><i></i></div></div>');
+                    $('#magnify').css({
+                        left: ($(document).width() - $('#magnify').outerWidth()) / 2,
+                        // top: ($(document).height() - $('#magnify').outerHeight())/2 upd: 24.10.2016
+                        top: ($(window).height() - $('#magnify').outerHeight()) / 2
+                    });
+                    $('#overlay, #magnify').fadeIn('fast');
+                });
+
+                $('body').on('click', '#close-popup, #overlay', function (event) {
+                    event.preventDefault();
+
+                    $('#overlay, #magnify').fadeOut('fast', function () {
+                        $('#close-popup, #magnify, #overlay').remove();
+                    });
+                });
+            });
+            ///////////////////
+
+
+            /// промотка чата в конец
+            $(document).ready(function () {
+                var div = document.getElementById('chatroom'); // id div'a
+                $('#chatroom').scrollTop(div.scrollHeight - div.offsetHeight);
+            });
+
+
+        });
+
+
+        // Функция, при подключении магазина, выгружаем ему список пользователей, которые общались с магазином
+        hubConnection.on("Connectlist", function (userName, allUsers) {
+
+            //// установка в скрытых полях имени и id текущего пользователя
+            //$('#hdId').val(id);
+            //$('#username').val(userName);
+
+            //$("#chatusers"). удалить вложенные элементы и отрисовать снова
+            var myNode = document.getElementById("chatusers");
+            while (myNode.firstChild) {
+                myNode.removeChild(myNode.firstChild);
+            }
+
+
+            // Добавление всех пользователей
+            for (i = 0; i < allUsers.length; i++) {
+
+                AddUser(allUsers[i].iD_from, allUsers[i].new_message);
+            }
+        });
+
+
+
+        // отправка сообщения на сервер
+        document.getElementById("sendBtn").addEventListener("click", function (e) {
+            let message = htmlEncode(document.getElementById("message").value);
+            let userTo = htmlEncode(document.getElementById("userTo").value);
+            let typeMSG = htmlEncode(document.getElementById("typeMSG").value);
+            //let userName = htmlEncode(document.getElementById("userName").value);
+            let iduser = htmlEncode(document.getElementById("iduser").value);// пользователь который отправляет сообщение
+            let typeSiteClient = htmlEncode(document.getElementById("typeSiteClient").value);
+
+            hubConnection.invoke("SendTo", iduser, userTo, message, typeMSG,typeSiteClient);
+
+        });
+
+        ///////////////////////
+        // Открываем соединение
+        hubConnection.start().then(function () {
+            console.log("connected");
+            // Вызываем у хаба метод Connect_shop для подключения и регистрации в чате
+            hubConnection.invoke("Connect_shop", document.getElementById("iduser").value);
+
+            $("#statuschat").val("Подключен");
+
+        });
+
+
+
+        ////////////////////////////////
+
+        // Кодирование тегов
+        function htmlEncode(value) {
+            var encodedValue = $('<div />').text(value).html();
+            return encodedValue;
+        }
+        //Добавление нового пользователя
+        function AddUser(name, read_msg) {
+
+            var userId = $('#userTo').val();
+            var nameShort = "#" + name.substr(0, 8); // 
+
+            
+            if (userId == name || !read_msg) {                
+
+                if (userId == name)// если выбран клиент с кем идет общение, то выделяем жирным
+                    $("#chatusers").append('<b> <a href="chatView?ID_Client=' + name + '">' + nameShort + '</a><b/>');
+                else
+                    $("#chatusers").append(' <a href="chatView?ID_Client=' + name + '">' + nameShort + '</a>');
+            }
+            else
+                if (read_msg)
+                    $("#chatusers").append('<a href="chatView?ID_Client=' + name + '">' + nameShort + '  </a> <b>new</b>');
+
+
+            //if (read_msg)
+            //    $("#chatusers").append('<a href="chatView?ID_Client=' + name + '">' + nameShort + '  </a> <b>new</b>');
+            //else
+                //$("#chatusers").append('<a href="chatView?ID_Client=' + name + '">' + nameShort + '</a>');
+
+            $("#chatusers").append('<hr/>');
+        }
+
+
+        ////////////////////
+        // СКРИПТ УВЕЛИЧЕНИЯ ФОТО
+        $(function () {
+            $('.minimized').click(function (event) {
+                //document.getElementsByClassName("minimized").addEventListener("click", function (e) {
+                var i_path = $(this).attr('src');
+                $('body').append('<div id="overlay"></div><div id="magnify"><img src="' + i_path + '"><div id="close-popup"><i></i></div></div>');
+                $('#magnify').css({
+                    left: ($(document).width() - $('#magnify').outerWidth()) / 2,
+                    // top: ($(document).height() - $('#magnify').outerHeight())/2 upd: 24.10.2016
+                    top: ($(window).height() - $('#magnify').outerHeight()) / 2
+                });
+                $('#overlay, #magnify').fadeIn('fast');
+            });
+
+            $('body').on('click', '#close-popup, #overlay', function (event) {
+                event.preventDefault();
+
+                $('#overlay, #magnify').fadeOut('fast', function () {
+                    $('#close-popup, #magnify, #overlay').remove();
+                });
+            });
+        });
+            ///////////////////
+
+
+
+        ///////// если коннект отвалится то автоматически проивзести переподключение
+        async function start() {
+            try {
+                await hubConnection.start();
+                console.log("connected");
+                // Вызываем у хаба метод Connect_shop для подключения и регистрации в чате
+                hubConnection.invoke("Connect_shop", document.getElementById("iduser").value);
+                $("#statuschat").val("Подключен");
+            } catch (err) {
+                console.log(err);
+                setTimeout(() => start(), 5000);
+            }
+        };
+
+        hubConnection.onclose(async () => {
+            $("#statuschat").val("Переподключение");
+            await start();
+        });
+
+
+    </script>
+</body>
+</html>

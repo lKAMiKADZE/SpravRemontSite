@@ -1,0 +1,58 @@
+﻿@model SpravRemontSite.Models.ImgsShopVM
+
+@{
+    ViewData["Title"] = "Добавление фото";
+}
+
+<h2>Добавление фото</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Фото
+            </th>          
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.iMG_Shops) {
+        <tr>
+            <td>
+                <img style='height:200px;' src="@item.Url" />
+            </td>
+            <td>
+                <b>@Html.ActionLink("Удалить", "ImgsShopDelete","admpanel", new { ID_IMG=item.ID_IMG_Shop })</b>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<hr />
+<br />
+<br />
+<div>
+    <div class="row">
+        <div class="col-md-4">
+
+            @if (Model.iMG_Shops.Count < 10)
+            {
+                <form asp-action="ImgsShop" asp-controller="Home" enctype="multipart/form-data">
+                    <input hidden asp-for="ID_SHOP"/>
+
+                    <label class="control-label">Добавить новое изображение</label><br /><br />
+                    <input asp-for="IMG_formFile" type="file" class="form-control" /><br />
+
+                    <input type="submit" value="Добавить фото" class="btn btn-success"/>
+                </form>
+            }
+
+
+        </div>
+
+
+
+    </div>
+</div>
+

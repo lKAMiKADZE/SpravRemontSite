@@ -1,0 +1,63 @@
+﻿@model IEnumerable<SpravRemontSite.DataObject.ITEMS_BUY>
+
+
+@{
+    ViewData["Title"] = "Товары магазина";
+}
+
+<h2>Товары магазина</h2>
+
+
+
+<p>
+<a href="ItemAdd?ID_ITEMS_SHOP=@ViewBag._ID_ITEMS_SHOP">
+    Добавить товар
+</a>
+</p>
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Изображение
+            </th>
+            
+            <th>
+                Название товара
+            </th>
+            <th>
+                Описание
+            </th>
+            <th>
+                Цена
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>                    
+                <td>
+                    <img src="@item.IMG_URL" height="70" />
+                </td>                
+                <td>
+                    @Html.DisplayFor(modelItem => item.NAME_IB)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NOTE_IB)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PRICE)
+                </td>
+                <td>
+                    @Html.ActionLink("Редактировать", "EditItem", new { ID_ITEMS_BUY = item.ID_ITEMS_BUY }) |
+                    @Html.ActionLink("Удалить", "DeleteItem", new { ID_ITEMS_BUY = item.ID_ITEMS_BUY})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

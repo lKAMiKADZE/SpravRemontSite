@@ -1,0 +1,38 @@
+﻿@model app20193Service.DataObjects.CommentClient
+
+@{
+    ViewData["Title"] = "Ответ на комментарий";
+}
+
+<h2>Ответ на комментарий</h2>
+
+<hr />
+<div class="row">
+    
+    <div class="col-md-6">
+        <label>Комментарий клиента</label><br />
+        <p>@Model.Comment</p><br />
+
+        <label>Оценка</label><br />
+        <p>@Model.Count_star</p><br />
+
+        <form asp-action="AnswerComment">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="ID_comment_client" hidden="hidden" />
+            <div class="form-group">
+                <label asp-for="CommentShop.Comment_shop" class="control-label">Ваш ответ</label>
+                <input asp-for="CommentShop.Comment_shop" class="form-control" />
+                <span asp-validation-for="CommentShop.Comment_shop" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Ответить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

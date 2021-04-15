@@ -1,0 +1,31 @@
+﻿@model IEnumerable<SpravRemontSite.DataObject.ITEMS_SHOP>
+
+@{
+    ViewData["Title"] = "Тип товара";
+}
+
+<h2>Товары с категорией</h2>
+<br />
+<h4>@ViewBag.NameKategor</h4>
+
+<table class="table">
+    <thead>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td width="150px">
+                    <img height="80" width="80" src="@item.ITEM_KATEGOR.ITEM.IMG_URL"/>
+                </td>
+                <td valign="middle">
+                    <h4>
+                        <a href="ItemsBuy?ID_ITEMS_SHOP=@item.ID_ITEMS_SHOP">
+                            @item.ITEM_KATEGOR.ITEM.NAME_ITEM
+                        </a>
+                    </h4>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

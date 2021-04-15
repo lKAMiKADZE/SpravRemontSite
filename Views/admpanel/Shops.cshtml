@@ -1,0 +1,86 @@
+﻿@model IEnumerable<SpravRemontSite.DataObject.Shop>
+
+@{
+    ViewData["Title"] = "Организации";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Список Организаций</h2>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                Логотип
+            </th>
+            <th>
+                Название
+            </th>
+            <th>
+                Телефон
+            </th>
+            <th>
+                Тип организации
+            </th>
+            <th>
+                Дата создания
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+         <tr>
+
+             <td>
+                 @if (item.New_shop)
+                 {
+                     <p>Новый</p>
+                 }
+                 else
+                 {
+                     @if (!item.VISIBLE)
+                     {
+                         <b><p style='color:#F44336;'>Отключен</p></b>
+                     }
+                 }
+             </td>
+            <td>
+                <img src="@item.IMG_LOGO" height="70" />
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Phone
+            </td>
+            <td>
+                @item.Type
+            </td>
+            <td>
+                @item.DateAdd
+            </td>
+
+            <td>
+                @Html.ActionLink("Редактировать", "AccountShop", new { ID_Shop = item.ID_shop }) |
+                @if (item.VISIBLE)
+                {
+                    @Html.ActionLink("Отключить", "DeactivatedShop", new { ID_Shop = item.ID_shop })
+                }
+                else
+                {
+                    
+                    @Html.ActionLink("Активировать", "ActiveShop", new { ID_Shop = item.ID_shop })
+                    <div style='color:#F44336;'></div>
+                }
+
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,43 @@
+﻿@model SpravRemontSite.DataObject.USLUGS_SHOP
+
+@{
+    ViewData["Title"] = "Изменение услуги";
+}
+
+<h2>Изменение услуги</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditUslug">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="ID_USLUGS_SHOP" hidden="hidden" />
+                <input asp-for="ID_SHOP" hidden="hidden" />
+                <input asp-for="Uslug.ID_USLUG" hidden="hidden" />
+
+            </div>
+            <div class="form-group">
+                <label asp-for="NOTE_USLUGS_SHOP" class="control-label">Описание услуги</label>
+                <input asp-for="NOTE_USLUGS_SHOP" class="form-control" />
+                <span asp-validation-for="NOTE_USLUGS_SHOP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PRICE" class="control-label">Стоимость услуги</label>
+                <input asp-for="PRICE" class="form-control" />
+                <span asp-validation-for="PRICE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

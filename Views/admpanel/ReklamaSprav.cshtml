@@ -1,0 +1,32 @@
+﻿@model SpravRemontSite.DataObject.Reklama
+
+@{
+    ViewData["Title"] = "Реклама в справочнике";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Реклама в справочнике</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ReklamaSprav" asp-controller="admpanel" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input asp-for="ID_Reklama" hidden="hidden" />
+
+            <div>
+
+                <input hidden="hidden" asp-for="IMG_URL" />
+
+                <img src="@Model.IMG_URL" style='height:200px;' /><br /><br />
+                <input asp-for="IMG_URL_F" type="file" />
+                <span asp-validation-for="IMG_URL_F" class="text-danger"></span>
+            </div>
+            <br /><br />
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>

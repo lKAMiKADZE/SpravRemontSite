@@ -1,0 +1,55 @@
+﻿@model SpravRemontSite.Models.RegisterModel
+
+@{
+    ViewData["Title"] = "Регистрация";
+    
+}
+
+<h2>Регистрация</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Register">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">Еmail</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <select asp-for="typeShop">
+                    @foreach (var item in Model.TYPE_SHOPs)
+                    {
+                        <option value="@item.ID_TYPE_SHOP">@item.NAME_TYPE</option>
+                    }
+                </select>
+
+                <label class="control-label">Тип учетной записи</label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label">Пароль</label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label">Повторите пароль</label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Зарегистрироваться" class="btn btn-default" />
+            </div>
+
+            @*@Html.DropDownListFor(model => model.typeShop,
+                    new SelectList(Model.TYPE_SHOPs, "Value", "Text"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.typeShop, "", new { @class = "text-danger" })*@
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

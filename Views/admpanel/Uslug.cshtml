@@ -1,0 +1,43 @@
+﻿@model IEnumerable<SpravRemontSite.DataObject.USLUG>
+
+@{
+    ViewData["Title"] = "Список услуг";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Список услуг</h2>
+
+<p>
+    <a asp-action="CreateUslug">Добавить</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Изображение
+            </th>
+            <th>
+                Название услуги
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <img src="@item.IMG_URL" height="70" />
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.NAME_USLUG)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "EditUslug", new { ID_USLUG = item.ID_USLUG }) |
+                @Html.ActionLink("Удалить", "DeleteUslug", new { ID_USLUG = item.ID_USLUG }) 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

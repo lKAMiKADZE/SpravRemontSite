@@ -1,0 +1,42 @@
+﻿@model IEnumerable<SpravRemontSite.DataObject.Reklama>
+
+@{
+    ViewData["Title"] = "Reklama";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Реклама</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                
+            </th>
+           
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @if (item.ID_Reklama == "1d0eb5f2-0ffd-411b-9cf2-318a60b22604")
+                {
+
+                    <a href="ReklamaShop?ID_Reklama=@item.ID_Reklama"> @*&img_url=@item.IMG_URL*@
+                        Реклама в карточке магазина
+                    </a>
+                }
+                @if (item.ID_Reklama == "4d0eb5f2-0ffd-411b-9cf2-318a60b22604")
+                {
+
+                    <a href="ReklamaSprav?ID_Reklama=@item.ID_Reklama">
+                        Реклама в разделе справочника
+                    </a>
+                }
+            </td>           
+        </tr>
+}
+    </tbody>
+</table>

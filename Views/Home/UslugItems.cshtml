@@ -1,0 +1,43 @@
+﻿@model SpravRemontSite.DataObject.USLUGS_SHOP
+
+@{
+    ViewData["Title"] = "UslugItems";
+}
+
+<h2>Услуга</h2>
+<h4>@ViewData["NAME_USLUG"]</h4>
+
+@if (Model.Uslug == null)
+{
+<p>
+    <h3>
+        <a n="UslugAdd"></a>
+        <a href="UslugAdd?ID_USLUG=@ViewData["ID_USLUG"]&NAME_USLUG=@ViewData["NAME_USLUG"]">
+            Добавить услугу
+        </a>
+    </h3>
+</p>
+}
+else
+{
+<div>
+
+    <br />
+    <label>Описание</label>
+    <p>@Model.NOTE_USLUGS_SHOP</p>
+    <br />
+    <label>Стоимость услуги</label>
+    <br />
+    <p>@Model.PRICE Руб</p>
+    <br />
+    <br />
+
+    @Html.ActionLink("Редактировать", "EditUslug", new { ID_USLUGS_SHOP = Model.ID_USLUGS_SHOP })
+    |
+    @Html.ActionLink("Удалить", "DeleteUslug", new { ID_USLUGS_SHOP = Model.ID_USLUGS_SHOP })
+
+</div>
+}
+
+
+

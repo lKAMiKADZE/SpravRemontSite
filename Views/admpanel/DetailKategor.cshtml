@@ -1,0 +1,42 @@
+﻿@model IEnumerable<SpravRemontSite.DataObject.ITEM_KATEGOR>
+
+@{
+    ViewData["Title"] = "Типы товаров";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Типы товаров</h2>
+<h4>@ViewBag.NAME_KATEGOR</h4>
+
+<p>
+    <a href="CreateItem?ID_KATEGOR=@ViewBag.ID_KATEGOR">Добавить</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Изображение
+            </th>
+            <th>
+                Название типа товаров
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td width="150">
+                <img src="@item.ITEM.IMG_URL" height="70" width="70" />
+            </td>
+            <td>
+                @item.ITEM.NAME_ITEM
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "EditItem", new { ID_ITEM_KATEGOR = item.ID_ITEM_KATEGOR, ID_ITEM = item.ITEM.ID_ITEM }) |
+                @Html.ActionLink("Удалить", "DeleteItem", new { ID_ITEM_KATEGOR = item.ID_ITEM_KATEGOR, ID_ITEM=item.ITEM.ID_ITEM })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

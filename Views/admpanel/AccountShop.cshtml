@@ -1,0 +1,210 @@
+﻿@model SpravRemontSite.Models.AccountShopVM
+
+@{
+    ViewData["Title"] = "Аккаунт";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Настройка магазина Администратором</h2>
+<h4>@Model.Shop.Name</h4>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="AccountShop" asp-controller="admpanel" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input hidden="hidden" asp-for="Shop.ID_shop" />
+
+            <div class="form-group">
+                <div class="checkbox">                    
+                    <label>
+                        <input asp-for="Shop.ADMIN_SHOP" />
+                    </label>
+                    <label class="control-label"><b>Магазин администратор (Может удалять комментарии)</b></label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox">                   
+                    <label>
+                        <input asp-for="Shop.VISIBLE" />
+                    </label>
+                    <label class="control-label"><b>Показывать магазин в Моб приложении</b></label>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label">Тип учетной записи</label>
+                <p>@Model.Shop.TYPE_SHOP.NAME_TYPE</p>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Shop.Name" class="control-label">Название организации</label>
+                <input asp-for="Shop.Name" class="form-control" />
+                <span asp-validation-for="Shop.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input hidden="hidden" asp-for="Shop.IMG_LOGO" />
+
+                <label asp-for="Shop.IMG_LOGO_f" class="control-label">Логотип</label><br />
+                <img style='height:80px;' src="@Model.Shop.IMG_LOGO" /><br /><br />
+                <input asp-for="Shop.IMG_LOGO_f" type="file" class="form-control" />
+                <span asp-validation-for="Shop.IMG_LOGO_f" class="text-danger"></span>
+            </div>
+
+            <br />
+            <div class="form-group">
+                <select asp-for="Shop.TimeWayMetro">
+                    @foreach (var item in Model.timeWayMetros)
+                    {
+                        <option value="@item.minutes">@item.Comment</option>
+                    }
+                </select>
+
+                <label class="control-label">Время ходьбы от метро</label>
+
+            </div>
+            <div class="form-group">
+                <select asp-for="Shop.City.ID_City">
+                    @foreach (var item in Model.Citys)
+                    {
+                        <option value="@item.ID_City">@item.NAME_City</option>
+                    }
+                </select>
+
+                <label class="control-label">Город</label>
+            </div>
+            <div class="form-group">
+                <select asp-for="Shop.Metro.ID_metro">
+                    @foreach (var item in Model.Metros)
+                    {
+                        <option value="@item.ID_metro">@item.Station</option>
+                    }
+                </select>
+                <label class="control-label">Ближайшее Метро</label>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Shop.BuyCard" />
+                    </label>
+                    <label class="control-label"><b>Возможность безналичной оплаты</b></label>
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Shop.Phone" class="control-label">Телефон организации</label>
+                <input asp-for="Shop.Phone" class="form-control" />
+                <span asp-validation-for="Shop.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shop.Adress" class="control-label">Адрес</label>
+                <input asp-for="Shop.Adress" class="form-control" />
+                <span asp-validation-for="Shop.Adress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shop.Email" class="control-label">Email</label>
+                <input asp-for="Shop.Email" class="form-control" />
+                <span asp-validation-for="Shop.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shop.Site" class="control-label">Сайт</label>
+                <input asp-for="Shop.Site" class="form-control" />
+                <span asp-validation-for="Shop.Site" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Shop.Note" class="control-label">Краткое описание организации</label>
+                <input asp-for="Shop.Note" class="form-control" />
+                <span asp-validation-for="Shop.Note" class="text-danger"></span>
+            </div>
+
+
+
+
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Shop.DISCONT_CARD" /><b>Имеется карта для мастеров</b>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shop.DISCONT_NOTE" class="control-label">Критерии получения карты</label>
+                <input asp-for="Shop.DISCONT_NOTE" class="form-control" />
+                <span asp-validation-for="Shop.DISCONT_NOTE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Время работы</label>
+                <input asp-for="Shop.TimeWork.ID_timeWork" hidden />
+
+                <p>ПН</p>
+                <input asp-for="Shop.TimeWork.MondayStart" maxlength="5" type="text" /> -
+                <input asp-for="Shop.TimeWork.MondayEnd" maxlength="5" type="text" />
+                <p>ВТ</p>
+                <input asp-for="Shop.TimeWork.TuesdayStart" maxlength="5" type="text" /> -
+                <input asp-for="Shop.TimeWork.TuesdayEnd" maxlength="5" type="text" />
+                <p>СР</p>
+                <input asp-for="Shop.TimeWork.WednesdayStart" maxlength="5" type="text" /> -
+                <input asp-for="Shop.TimeWork.WednesdayEnd" maxlength="5" type="text" />
+                <p>ЧТ</p>
+                <input asp-for="Shop.TimeWork.ThursdayStart" maxlength="5" type="text" /> -
+                <input asp-for="Shop.TimeWork.ThursdayEnd" maxlength="5" type="text" />
+                <p>ПТ</p>
+                <input asp-for="Shop.TimeWork.FridayStart" maxlength="5" type="text" /> -
+                <input asp-for="Shop.TimeWork.FridayEnd" maxlength="5" type="text" />
+                <p>СБ</p>
+                <input asp-for="Shop.TimeWork.SaturdayStart" maxlength="5" type="text" /> -
+                <input asp-for="Shop.TimeWork.SaturdayEnd" maxlength="5" type="text" />
+                <p>ВС</p>
+                <input asp-for="Shop.TimeWork.SundayStart" maxlength="5" type="text" /> -
+                <input asp-for="Shop.TimeWork.SundayEnd" maxlength="5" type="text" />
+
+            </div>
+            <br />
+
+            <div class="form-group">
+                <input hidden="hidden" asp-for="Shop.IMG_DRIVE_TO" />
+
+                <label asp-for="Shop.IMG_DRIVE_TO_f" class="control-label">Схема проезда</label><br />
+                <img style='height:400px;' src="@Model.Shop.IMG_DRIVE_TO" /><br /><br />
+                <input asp-for="Shop.IMG_DRIVE_TO_f" type="file" class="form-control" />
+                <span asp-validation-for="Shop.IMG_DRIVE_TO_f" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <input hidden="hidden" asp-for="Shop.IMG_MAP" />
+
+                <label asp-for="Shop.IMG_MAP_f" class="control-label">Расположение организации на карте</label><br />
+                <img style='height:400px;' src="@Model.Shop.IMG_MAP" /><br /><br />
+                <input asp-for="Shop.IMG_MAP_f" type="file" class="form-control" />
+                <span asp-validation-for="Shop.IMG_MAP_f" class="text-danger"></span>
+
+            </div>
+
+
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default btn-success" />
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">            
+            <a  href="ImgsShop?ID_SHOP=@Model.Shop.ID_shop" >Редактировать фотографии организации</a>  
+        </div>
+
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

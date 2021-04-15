@@ -1,0 +1,26 @@
+﻿@model IEnumerable<SpravRemontSite.DataObject.KATEGOR>
+
+@{
+    ViewData["Title"] = "Категории";
+}
+
+<h2>Список категорий</h2>
+
+
+<table class="table">
+    
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <h4>
+                    <a href="ItemKategor?ID_KATEGOR=@item.ID_KATEGOR&NAME_KATEGOR=@item.NAME_KATEGOR">
+                        @Html.DisplayFor(modelItem => item.NAME_KATEGOR)
+                    </a>
+                </h4>
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>

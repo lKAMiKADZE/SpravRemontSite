@@ -1,0 +1,30 @@
+﻿@model IEnumerable<SpravRemontSite.DataObject.USLUG>
+
+@{
+    ViewData["Title"] = "Услуги";
+}
+
+<h2>Категории услуг</h2>
+
+
+<table class="table">
+   
+        
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td width="150px">
+                <img height="80" width="80" src="@item.IMG_URL" />
+            </td>
+            <td>
+                <h4>
+                    <a href="UslugItems?ID_USLUG=@item.ID_USLUG&NAME_USLUG=@item.NAME_USLUG">
+                        @Html.DisplayFor(modelItem => item.NAME_USLUG)
+                    </a>
+                </h4>
+            </td>
+
+        </tr>
+}
+    </tbody>
+</table>

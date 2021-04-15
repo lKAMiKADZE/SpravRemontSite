@@ -1,0 +1,33 @@
+﻿@model SpravRemontSite.DataObject.KATEGOR
+
+@{
+    ViewData["Title"] = "Изменение категории";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Изменение категории</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditKategor">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">                
+                <input hidden="hidden" asp-for="ID_KATEGOR"  />                
+            </div>
+            <div class="form-group">
+                <label asp-for="NAME_KATEGOR" class="control-label">Название категории</label>
+                <input asp-for="NAME_KATEGOR" class="form-control" />
+                <span asp-validation-for="NAME_KATEGOR" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Kategor">Назад</a>
+</div>
+

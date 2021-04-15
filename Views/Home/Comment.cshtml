@@ -1,0 +1,81 @@
+﻿@model IEnumerable<app20193Service.DataObjects.CommentClient>
+
+@{
+    ViewData["Title"] = "Комментарии";
+}
+
+<h2>Комментарии</h2>
+
+
+<table class="table" style="table-layout: fixed; width:100%">
+    <thead>
+        <tr>
+            <th>
+                Имя
+            </th>
+            <th>
+                Email
+            </th>
+            <th >
+                Комментарий
+            </th>
+            <th>
+                Кол-во звезд
+            </th>
+            <th >
+                Комментарий магазина
+            </th>
+            <th>
+                Дата коммент. клиента
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td style="word-wrap:break-word;">
+                @item.Name
+            </td>
+            <td style="word-wrap:break-word;">
+                @item.Email
+            </td>
+            <td style="width:250px; word-wrap:break-word;" >
+                @item.Comment
+            </td>
+            <td style="word-wrap:break-word;">
+                @item.Count_star
+            </td>
+            <td style="width:250px; word-wrap:break-word;">
+                @item.CommentShop.Comment_shop
+            </td>
+            <td style="word-wrap:break-word;">
+                @item.Date_add
+            </td>
+            <td >
+                @if (item.CommentShop.ID_comment_shop == null || item.CommentShop.ID_comment_shop == "")
+                {
+                    <div>
+                        @Html.ActionLink("Ответить", "AnswerComment", new { ID_comment_client = item.ID_comment_client })
+                    </div>
+                }
+                else
+                {               
+                    <div><br />
+                        @Html.ActionLink("Удалить ответ", "DeleteAnswerComment", new { ID_comment_shop=item.CommentShop.ID_comment_shop, ID_comment_client=item.ID_comment_client })
+                     </div>
+                }
+
+                @if (item.Admin_shop)
+                {                    
+                    <div><br/>
+                        @Html.ActionLink("Удалить комментарий", "DeleteComment", new { ID_comment_client = item.ID_comment_client })
+                    </div>
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
