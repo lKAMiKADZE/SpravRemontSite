@@ -12,7 +12,7 @@ using SpravRemontSite.Models;
 
 namespace SpravRemontSite.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class admpanelController : Controller
     {
 
@@ -26,6 +26,10 @@ namespace SpravRemontSite.Controllers
                
         public IActionResult admIndex()
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -40,6 +44,10 @@ namespace SpravRemontSite.Controllers
         #region
         public IActionResult Kategor()
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -51,6 +59,10 @@ namespace SpravRemontSite.Controllers
         [HttpGet]
         public IActionResult EditKategor(string ID_KATEGOR, string NAME_KATEGOR)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -65,6 +77,10 @@ namespace SpravRemontSite.Controllers
         [HttpPost]
         public IActionResult EditKategor(KATEGOR kat)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -75,6 +91,10 @@ namespace SpravRemontSite.Controllers
 
         public IActionResult DeleteKategor(string ID_KATEGOR)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -86,6 +106,10 @@ namespace SpravRemontSite.Controllers
         [HttpPost]
         public IActionResult AddKategor(string NAME_KATEGOR)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -96,6 +120,10 @@ namespace SpravRemontSite.Controllers
 
         public IActionResult DetailKategor(string ID_KATEGOR, string NAME_KATEGOR)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -109,6 +137,10 @@ namespace SpravRemontSite.Controllers
 
         public IActionResult DeleteItem(string ID_ITEM_KATEGOR, string ID_ITEM)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -121,6 +153,10 @@ namespace SpravRemontSite.Controllers
         [HttpGet]
         public IActionResult EditItem(string ID_ITEM_KATEGOR, string ID_ITEM)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -132,6 +168,10 @@ namespace SpravRemontSite.Controllers
         [HttpPost]
         public async Task<IActionResult> EditItem(ITEM_KATEGOR it)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -158,6 +198,10 @@ namespace SpravRemontSite.Controllers
         [HttpGet]
         public IActionResult CreateItem(string ID_KATEGOR)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -173,6 +217,10 @@ namespace SpravRemontSite.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateItem(ITEM_KATEGOR it)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -211,6 +259,10 @@ namespace SpravRemontSite.Controllers
         #region
         public IActionResult Uslug()
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -222,6 +274,10 @@ namespace SpravRemontSite.Controllers
         [HttpGet]
         public IActionResult EditUslug(string ID_USLUG)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -232,6 +288,10 @@ namespace SpravRemontSite.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUslug(USLUG us)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -256,6 +316,10 @@ namespace SpravRemontSite.Controllers
         [HttpGet]
         public IActionResult CreateUslug()
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
             
@@ -265,6 +329,10 @@ namespace SpravRemontSite.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUslug(USLUG us)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -288,6 +356,10 @@ namespace SpravRemontSite.Controllers
         }
         public IActionResult DeleteUslug(string ID_USLUG)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -310,6 +382,10 @@ namespace SpravRemontSite.Controllers
         #region
         public IActionResult Shops()
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -321,6 +397,10 @@ namespace SpravRemontSite.Controllers
         [HttpGet]
         public IActionResult AccountShop(string ID_Shop)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -351,6 +431,10 @@ namespace SpravRemontSite.Controllers
         [HttpPost]
         public async Task<IActionResult> AccountShop(AccountShopVM accountShopVM)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -413,6 +497,10 @@ namespace SpravRemontSite.Controllers
 
         public IActionResult ActiveShop(string ID_Shop)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -424,6 +512,10 @@ namespace SpravRemontSite.Controllers
         }
         public IActionResult DeactivatedShop(string ID_Shop)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -442,6 +534,10 @@ namespace SpravRemontSite.Controllers
         #region
         public IActionResult Reklama()
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -453,6 +549,10 @@ namespace SpravRemontSite.Controllers
         [HttpGet]
         public IActionResult ReklamaShop(string ID_Reklama)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -466,6 +566,10 @@ namespace SpravRemontSite.Controllers
         [HttpPost]
         public async Task<IActionResult> ReklamaShop(Reklama rek)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -489,6 +593,10 @@ namespace SpravRemontSite.Controllers
         [HttpGet]
         public IActionResult ReklamaSprav(string ID_Reklama)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -501,6 +609,10 @@ namespace SpravRemontSite.Controllers
         [HttpPost]
         public async Task<IActionResult> ReklamaSprav(Reklama rek)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -533,6 +645,10 @@ namespace SpravRemontSite.Controllers
 
         public IActionResult LoadMetro(string token)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 
@@ -557,6 +673,10 @@ namespace SpravRemontSite.Controllers
         public IActionResult ImgsShop(string ID_SHOP)
         {
 
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
 
             //Shop shop = new Shop(User.Identity.Name);
 
@@ -569,6 +689,10 @@ namespace SpravRemontSite.Controllers
         [HttpPost]
         public async Task<IActionResult> ImgsShop(ImgsShopVM VM)
         {
+
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
 
 
             if (ModelState.IsValid)
@@ -599,6 +723,10 @@ namespace SpravRemontSite.Controllers
         [HttpGet]
         public IActionResult ImgsShopDelete(long ID_IMG, string ID_SHOP)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             //Shop shop = new Shop(User.Identity.Name);
 
             IMG_Shop.Delete(ID_IMG, ID_SHOP);
@@ -640,6 +768,10 @@ namespace SpravRemontSite.Controllers
 
         public IActionResult Setings()
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!CheckAdmin())
                 return RedirectToAction("index", "Home");
 

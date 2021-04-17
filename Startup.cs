@@ -62,7 +62,7 @@ namespace SpravRemontSite
             //app.UseDefaultFiles();// azure
 
 
-            //app.UseAuthentication();// авторизация
+            app.UseAuthentication();// авторизация
             //
 
 

@@ -43,6 +43,13 @@ namespace SpravRemontSite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel model)
         {
+
+
+           // await Authenticate("email@edd", "340eb5f2-0ffd-411b-9cf2-318a60b22604", "123456"); // аутентификация
+            //return RedirectToAction("Index", "Home");
+
+
+
             //HttpContext.User.Identity.Name //логин
             //HttpContext.User.Identity.IsAuthenticated // авторизован ли
 

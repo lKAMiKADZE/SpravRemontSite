@@ -48,13 +48,13 @@ namespace SpravRemontSite.Controllers
         /////////////////////////
         // Главная
         /////////////////////////
-        [Authorize]
+
+        
         public IActionResult Index()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                RedirectToAction("Login", "Account");
-            }
+            if (!HttpContext.User.Identity.IsAuthenticated)            
+                return RedirectToAction("Login", "Account");
+            
             return View();
         }
 
@@ -63,9 +63,13 @@ namespace SpravRemontSite.Controllers
             return View();
         }
 
-        [Authorize]
+        //[Authorize]
         public IActionResult Contact()
         {
+
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
             ViewData["Message"] = "Your contact page.";
 
             return View();
@@ -82,33 +86,49 @@ namespace SpravRemontSite.Controllers
         // Комментарии
         /////////////////////////
         #region
-        [Authorize]
+        //[Authorize]
         public IActionResult Comment()
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             List<CommentClient> cm = CommentClient.GetComments(User.Identity.Name);
 
             return View(cm);
         }
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public IActionResult AnswerComment(string ID_comment_client)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             var CC = CommentClient.GetComment(ID_comment_client);
 
             return View(CC);
         }
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public IActionResult AnswerComment(CommentClient cc)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             CommentShop.Create(cc.ID_comment_client, cc.CommentShop.Comment_shop);
 
             return Redirect("Comment");
         }
 
-        [Authorize]
+        //[Authorize]
         public IActionResult DeleteAnswerComment(string ID_comment_shop, string ID_comment_client)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
 
             CommentShop.Delete(ID_comment_shop, ID_comment_client);
 
@@ -117,9 +137,14 @@ namespace SpravRemontSite.Controllers
             return Redirect(referrer);
 
         }
-        [Authorize]
+        //[Authorize]
         public IActionResult DeleteComment(string ID_comment_client)
         {
+
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             CommentClient.DeleteVisible(ID_comment_client);
 
             var referrer = Request.Headers["Referer"];
@@ -137,9 +162,14 @@ namespace SpravRemontSite.Controllers
         // Услуги магазина
         /////////////////////////
         #region
-        [Authorize]
+       // [Authorize]
         public IActionResult Uslug()
         {
+
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!checkCookiesUslug())// если куки не равны услугам то редиеркт на категории
                 return RedirectToAction("Kategor");
 
@@ -150,9 +180,15 @@ namespace SpravRemontSite.Controllers
             return View(uslugs);
         }
 
-        [Authorize]
+        //[Authorize]
         public IActionResult UslugItems(string ID_USLUG, string NAME_USLUG)
         {
+
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
+
             if (!checkCookiesUslug())// если куки не равны услугам то редиеркт на категории
                 return RedirectToAction("Kategor");
 
@@ -168,9 +204,14 @@ namespace SpravRemontSite.Controllers
         }
 
         //удаление товара
-        [Authorize]
+       // [Authorize]
         public IActionResult DeleteUslug(string ID_USLUGS_SHOP)
         {
+
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
 
             if (!checkCookiesUslug())// если куки не равны услугам то редиеркт на категории
                 return RedirectToAction("Kategor");
@@ -184,10 +225,16 @@ namespace SpravRemontSite.Controllers
         }
 
         // изменение товара
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public IActionResult EditUslug(string ID_USLUGS_SHOP)
         {
+
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
+
             if (!checkCookiesUslug())// если куки не равны услугам то редиеркт на категории
                 return RedirectToAction("Kategor");
             // запрос итема с ID_ITEMS_BUY
@@ -198,10 +245,16 @@ namespace SpravRemontSite.Controllers
             return View(US);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public IActionResult EditUslug(USLUGS_SHOP US)
         {
+
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
+
             if (!checkCookiesUslug())// если куки не равны услугам то редиеркт на категории
                 return RedirectToAction("Kategor");
 
@@ -214,10 +267,16 @@ namespace SpravRemontSite.Controllers
             return Redirect("UslugItems?ID_USLUG=" + US.Uslug.ID_USLUG);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public IActionResult UslugAdd(string ID_USLUG, string NAME_USLUG)
         {
+
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
+
             if (!checkCookiesUslug())// если куки не равны услугам то редиеркт на категории
                 return RedirectToAction("Kategor");
 
@@ -231,10 +290,16 @@ namespace SpravRemontSite.Controllers
 
             return View();
         }
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public IActionResult UslugAdd(USLUGS_SHOP uSLUGS_SHOP)
         {
+
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
+
             if (!checkCookiesUslug())// если куки не равны услугам то редиеркт на категории
                 return RedirectToAction("Kategor");
 
@@ -253,9 +318,15 @@ namespace SpravRemontSite.Controllers
         // Категории товаров
         /////////////////////////
         #region
-        [Authorize]
+        //[Authorize]
         public IActionResult Kategor()
         {
+
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
+
             if (!checkCookiesKategor())// если куки не равны категории то редиеркт на услуги
                 return RedirectToAction("Uslug");
 
@@ -271,9 +342,13 @@ namespace SpravRemontSite.Controllers
             return View(kATEGORs);
         }
 
-        [Authorize]
+        //[Authorize]
         public IActionResult ItemKategor(KATEGOR kat)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!checkCookiesKategor())// если куки не равны категории то редиеркт на услуги
                 return RedirectToAction("Uslug");
 
@@ -284,9 +359,14 @@ namespace SpravRemontSite.Controllers
             return View(iTEMS_SHOPs);
         }
 
-        [Authorize]
+     //   [Authorize]
         public IActionResult ItemsBuy(string ID_ITEMS_SHOP)
         {
+
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!checkCookiesKategor())// если куки не равны категории то редиеркт на услуги
                 return RedirectToAction("Uslug");
 
@@ -299,9 +379,13 @@ namespace SpravRemontSite.Controllers
 
 
         //удаление товара
-        [Authorize]
+        //[Authorize]
         public IActionResult DeleteItem(string ID_ITEMS_BUY)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
 
             if (!checkCookiesKategor())// если куки не равны категории то редиеркт на услуги
                 return RedirectToAction("Uslug");
@@ -315,10 +399,14 @@ namespace SpravRemontSite.Controllers
         }
 
         // изменение товара
-        [Authorize]
+       // [Authorize]
         [HttpGet]
         public IActionResult EditItem(string ID_ITEMS_BUY)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!checkCookiesKategor())// если куки не равны категории то редиеркт на услуги
                 return RedirectToAction("Uslug");
             // запрос итема с ID_ITEMS_BUY
@@ -329,10 +417,15 @@ namespace SpravRemontSite.Controllers
             return View(IB);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public async Task<IActionResult> EditItem(ITEMS_BUY IB)
         {
+
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!checkCookiesKategor())// если куки не равны категории то редиеркт на услуги
                 return RedirectToAction("Uslug");
             // запрос итема с ID_ITEMS_BUY
@@ -358,18 +451,26 @@ namespace SpravRemontSite.Controllers
             return Redirect("ItemsBuy?ID_ITEMS_SHOP=" + IB.ID_ITEMS_SHOP);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public IActionResult ItemAdd(string ID_ITEMS_SHOP)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!checkCookiesKategor())// если куки не равны категории то редиеркт на услуги
                 return RedirectToAction("Uslug");
             return View();
         }
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public async Task<IActionResult> ItemAdd(ITEMS_BUY iTEMS_BUY)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (!checkCookiesKategor())// если куки не равны категории то редиеркт на услуги
                 return RedirectToAction("Uslug");
             if (ModelState.IsValid)
@@ -399,10 +500,14 @@ namespace SpravRemontSite.Controllers
         // Учетная запись магазина
         /////////////////////////
         #region
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public IActionResult AccountShop()
         {
+
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
 
 
             List<City> cities = City.GetCities();
@@ -429,10 +534,14 @@ namespace SpravRemontSite.Controllers
             return View(accountShop);
         }
 
-        [Authorize]
+       // [Authorize]
         [HttpPost]
         public async Task<IActionResult> AccountShop(AccountShopVM accountShopVM)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             if (ModelState.IsValid)
             {
                 // проверка на загрузку изоображений
@@ -518,9 +627,13 @@ namespace SpravRemontSite.Controllers
         /////////////////////////
         // Чат
         /////////////////////////
-        [Authorize]
+       // [Authorize]
         public IActionResult chatView(string ID_Client)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+                return RedirectToAction("Login", "Account");
+
+
             string id_shop = "";
 
             if (HttpContext.Request.Cookies.ContainsKey("iduser"))

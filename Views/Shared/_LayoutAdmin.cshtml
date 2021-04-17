@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Справочник мастеров</title>
+    <title>@ViewData["Title"] - Режим администратора</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -17,7 +17,7 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top" >
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -26,38 +26,26 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Справочник мастеров</a>
+                <a asp-area="" asp-controller="admpanel" asp-action="admIndex" class="navbar-brand" style='color:#E64A19;'>Режим администратора</a>
             </div>
             @if (User.Identity.IsAuthenticated)
             {
-                <div class="navbar-collapse collapse">
+                <div class="navbar-collapse collapse" >
 
                     <ul class="nav navbar-nav">
-                        @*<li><a asp-area="" asp-controller="admpanel" asp-action="admIndex">Админка</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Главная</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="chatView">Чат</a></li>*@
-                        <li><a asp-area="" asp-controller="Home" asp-action="Comment">Комментарии</a></li>
-                        @if (Context.Request.Cookies.ContainsKey("typeshop") &&
-                          (Context.Request.Cookies["typeshop"] == "340eb5f2-0ffd-411b-9cf2-318a60b22604"
-                          ||
-                          Context.Request.Cookies["typeshop"] == "350eb5f2-0ffd-411b-9cf2-318a60b22604"))
-                        {
-                            <li><a asp-area="" asp-controller="Home" asp-action="Kategor">Категории товаров</a></li>
-                        }
+                        <li><a asp-area="" asp-controller="admpanel" asp-action="Shops">Организации</a></li>                        
+                        <li><a asp-area="" asp-controller="admpanel" asp-action="Kategor">Категории</a></li>
+                        <li><a asp-area="" asp-controller="admpanel" asp-action="Uslug">Услуги</a></li>
+                        <li><a asp-area="" asp-controller="admpanel" asp-action="Reklama">Реклама</a></li>
 
-                        @if (Context.Request.Cookies.ContainsKey("typeshop") &&
-                          Context.Request.Cookies["typeshop"] == "360eb5f2-0ffd-411b-9cf2-318a60b22604")
-                        {
-                            <li><a asp-area="" asp-controller="Home" asp-action="Uslug">Услуги</a></li>
-                        }
 
 
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-
                         <li>
-                            <a asp-action="AccountShop" asp-controller="Home">Добро пожаловать @User.Identity.Name! </a>
+                            <a asp-action="Index" asp-controller="Home">В обычный режим [@User.Identity.Name]</a>
                         </li>
+                        
                         <li>
                             <a asp-action="Logout" asp-controller="Account">Выход</a>
                         </li>
@@ -75,8 +63,7 @@
         <hr />
         <footer>
             <p>&copy; 2021 - Справочник Мастеров бытовой техники</p>
-            <p><a asp-area="" asp-controller="Home" asp-action="Privacy">Политика конфиденциальности</a></p>
- @*            <p><a href="mailto:KolbunovDev@gmail.com">Сайт-платформа разработана KolbunovDev@gmail.com</a></p>*@
+            @*<a href="mailto:KolbunovDev@gmail.com">Сайт-платформа разработана KolbunovDev@gmail.com</a>*@
         </footer>
     </div>
 
