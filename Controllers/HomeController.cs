@@ -51,6 +51,10 @@ namespace SpravRemontSite.Controllers
         [Authorize]
         public IActionResult Index()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                RedirectToAction("Login", "Account");
+            }
             return View();
         }
 

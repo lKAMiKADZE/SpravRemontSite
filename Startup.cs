@@ -38,14 +38,15 @@ namespace SpravRemontSite
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+            app.UseDeveloperExceptionPage();
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //}
             
 
             app.UseRouting();
@@ -53,7 +54,7 @@ namespace SpravRemontSite
             app.UseAuthorization();
 
             //
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseFileServer();
             //app.UseCookiePolicy();
@@ -61,7 +62,7 @@ namespace SpravRemontSite
             //app.UseDefaultFiles();// azure
 
 
-            app.UseAuthentication();// авторизация
+            //app.UseAuthentication();// авторизация
             //
 
 
