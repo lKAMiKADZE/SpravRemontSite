@@ -1,4 +1,4 @@
-п»ї/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
 body {
     padding-top: 50px;
@@ -29,21 +29,21 @@ body {
 }
 
 #chatusers { /* #chatusers  .prokrutkaClient*/
-    height: 500px; /* РІС‹СЃРѕС‚Р° РЅР°С€РµРіРѕ Р±Р»РѕРєР° */
-    width: 150px; /* С€РёСЂРёРЅР° РЅР°С€РµРіРѕ Р±Р»РѕРєР° */
-    background: #fff; /* С†РІРµС‚ С„РѕРЅР°, Р±РµР»С‹Р№ */
-    border: 1px solid #C1C1C1; /* СЂР°Р·РјРµСЂ Рё С†РІРµС‚ РіСЂР°РЅРёС†С‹ Р±Р»РѕРєР° */
-    /*overflow-x: scroll;*/ /* РїСЂРѕРєСЂСѓС‚РєР° РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё */
-    overflow-y: scroll; /* РїСЂРѕРєСЂСѓС‚РєР° РїРѕ РІРµСЂС‚РёРєР°Р»Рё */
+    height: 500px; /* высота нашего блока */
+    width: 150px; /* ширина нашего блока */
+    background: #fff; /* цвет фона, белый */
+    border: 1px solid #C1C1C1; /* размер и цвет границы блока */
+    /*overflow-x: scroll;*/ /* прокрутка по горизонтали */
+    overflow-y: scroll; /* прокрутка по вертикали */
 }
 
 #chatroom { /*.prokrutkaChat*/
-    height: 500px; /* РІС‹СЃРѕС‚Р° РЅР°С€РµРіРѕ Р±Р»РѕРєР° */
-    width: 600px; /* С€РёСЂРёРЅР° РЅР°С€РµРіРѕ Р±Р»РѕРєР° */
-    background: #fff; /* С†РІРµС‚ С„РѕРЅР°, Р±РµР»С‹Р№ */
-    border: 1px solid #C1C1C1; /* СЂР°Р·РјРµСЂ Рё С†РІРµС‚ РіСЂР°РЅРёС†С‹ Р±Р»РѕРєР° */
-    overflow-x: no-content; /* РїСЂРѕРєСЂСѓС‚РєР° РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё */
-    overflow-y: scroll; /* РїСЂРѕРєСЂСѓС‚РєР° РїРѕ РІРµСЂС‚РёРєР°Р»Рё */
+    height: 500px; /* высота нашего блока */
+    width: 600px; /* ширина нашего блока */
+    background: #fff; /* цвет фона, белый */
+    border: 1px solid #C1C1C1; /* размер и цвет границы блока */
+    overflow-x: no-content; /* прокрутка по горизонтали */
+    overflow-y: scroll; /* прокрутка по вертикали */
 }
 
 
@@ -57,20 +57,20 @@ body {
 
 
 /*///////////////////////////////////
-// CSS СѓРІРµР»РёС‡РµРЅРёСЏ РєР°СЂС‚РёРЅРєРё РІ С‡Р°С‚Рµ
+// CSS увеличения картинки в чате
 ///////////////////////////////////*/
-/* РєР°СЂС‚РёРЅРєР° РЅР° СЃС‚СЂР°РЅРёС†Рµ */
+/* картинка на странице */
 .minimized {
     width: 300px;
     cursor: pointer;
     border: 1px solid #FFF;
 }
 
-.minimized:hover {
-    border: 1px solid yellow;
-}
+    .minimized:hover {
+        border: 1px solid yellow;
+    }
 
-/* СѓРІРµР»РёС‡РµРЅРЅР°СЏ РєР°СЂС‚РёРЅРєР° */
+/* увеличенная картинка */
 #magnify {
     display: none;
     /* position: absolute; upd: 24.10.2016 */
@@ -84,7 +84,7 @@ body {
         width: 100%;
     }
 
-/* Р·Р°С‚РµРјРЅСЏСЋС‰РёР№ С„РѕРЅ */
+/* затемняющий фон */
 #overlay {
     display: none;
     background: #000;
@@ -97,7 +97,7 @@ body {
     z-index: 9990;
 }
 
-/* РєРЅРѕРїРєР° Р·Р°РєСЂС‹С‚РёСЏ */
+/* кнопка закрытия */
 #close-popup {
     width: 30px;
     height: 30px;
@@ -129,11 +129,3 @@ body {
     -webkit-animation-iteration-count: 1;
     animation-iteration-count: 1;
 }
- 
-
-
-
-
-
-
-
