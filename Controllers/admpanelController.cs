@@ -779,6 +779,9 @@ namespace SpravRemontSite.Controllers
             return View();
         }
 
+
+   
+
         private bool CheckAdmin()
         {
             if (User.Identity.Name == "1adm" || User.Identity.Name== "Igor.zenin500@yandex.ru")

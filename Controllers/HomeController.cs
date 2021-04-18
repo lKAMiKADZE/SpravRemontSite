@@ -45,11 +45,29 @@ namespace SpravRemontSite.Controllers
 
         }
 
+
+        public IActionResult LoadMetro()
+        {
+            //if (!HttpContext.User.Identity.IsAuthenticated)
+            //    return RedirectToAction("Login", "Account");
+
+
+            //if (!CheckAdmin())
+            //    return RedirectToAction("index", "Home");
+
+
+           // Metro.loadMetroMoscow();
+
+
+            return RedirectToAction("admIndex", "admpanel");
+        }
+
+
         /////////////////////////
         // Главная
         /////////////////////////
 
-        
+
         public IActionResult Index()
         {
             if (!HttpContext.User.Identity.IsAuthenticated)            
