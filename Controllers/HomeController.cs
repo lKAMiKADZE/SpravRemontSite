@@ -72,7 +72,11 @@ namespace SpravRemontSite.Controllers
         {
             if (!HttpContext.User.Identity.IsAuthenticated)            
                 return RedirectToAction("Login", "Account");
+
+
             
+
+
             return View();
         }
 

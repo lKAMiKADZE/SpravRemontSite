@@ -22,7 +22,7 @@
                 <img style='height:200px;' src="@item.Url" />
             </td>
             <td>
-                <b>@Html.ActionLink("Удалить", "ImgsShopDelete","admpanel", new { ID_IMG=item.ID_IMG_Shop })</b>
+                <b>@Html.ActionLink("Удалить", "ImgsShopDelete", new { ID_IMG = item.ID_IMG_Shop, ID_SHOP = item.ID_SHOP })</b>
             </td>
         </tr>
 }

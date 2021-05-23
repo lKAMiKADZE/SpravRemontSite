@@ -55,8 +55,8 @@ namespace SpravRemontSite.DataObject
 
         public Shop(string emailLogin)
         {
-            using (SqlConnection connection = new SqlConnection(CONSTANT.connectBD))
-            {
+            SqlConnection connection = new SqlConnection(CONSTANT.connectBD);
+            
 
 
                 #region sql
@@ -241,7 +241,6 @@ namespace SpravRemontSite.DataObject
 
 
 
-            }// using db
         }
 
         public static bool CreateShop(string ID_shop, TYPE_SHOP Type_shop, string ID_time_work)

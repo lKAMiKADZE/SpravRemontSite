@@ -45,8 +45,8 @@ namespace SpravRemontSite.Controllers
         {
 
 
-           // await Authenticate("email@edd", "340eb5f2-0ffd-411b-9cf2-318a60b22604", "123456"); // аутентификация
-            //return RedirectToAction("Index", "Home");
+            await Authenticate("email@edd", "340eb5f2-0ffd-411b-9cf2-318a60b22604", "123456"); // аутентификация
+            return RedirectToAction("Index", "Home");
 
 
 
@@ -56,7 +56,7 @@ namespace SpravRemontSite.Controllers
             if (HttpContext.User.Identity.IsAuthenticated)
                 return RedirectToAction("Index", "Home");
 
-            model.Password = GethashPassword(model.Password);
+                model.Password = GethashPassword(model.Password);
             
             if (ModelState.IsValid)
             {
