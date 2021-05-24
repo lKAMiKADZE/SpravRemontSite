@@ -45,8 +45,8 @@ namespace SpravRemontSite.Controllers
         {
 
 
-            await Authenticate("email@edd", "340eb5f2-0ffd-411b-9cf2-318a60b22604", "123456"); // аутентификация
-            return RedirectToAction("Index", "Home");
+            //await Authenticate("email@edd", "340eb5f2-0ffd-411b-9cf2-318a60b22604", "123456"); // аутентификация
+            //return RedirectToAction("Index", "Home");
 
 
 
